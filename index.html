@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Shortcut</title>
+    <title>Redirecting...</title>
     <script>
-        function addShortcut() {
+        document.addEventListener("DOMContentLoaded", function() {
             const shortcutUrl = "https://www.google.com/search?q=paneer%20pakoda"; // Change this to your desired URL
 
-            const a = document.createElement("a");
-            a.href = shortcutUrl;
-            a.rel = "noopener noreferrer";
-            a.target = "_blank";
-            a.click();
+            // Show a prompt before redirection (optional)
+            alert("You are being redirected. Once the page opens, tap the menu (⋮) and select 'Add to Home Screen'.");
 
-            alert("Now, tap the menu (⋮) and select 'Add to Home Screen' to create the shortcut.");
-        }
+            // Redirect after 1 second
+            setTimeout(function() {
+                window.location.href = shortcutUrl;
+            }, 1000);
+        });
     </script>
 </head>
 <body>
-    <h2>Tap the button below to add a shortcut to your home screen</h2>
-    <button onclick="addShortcut()">Add Shortcut</button>
-    <p>After tapping, use the browser menu (⋮) and select "Add to Home Screen".</p>
+    <h2>Redirecting...</h2>
+    <p>If you are not redirected, <a id="manualLink" href="#">click here</a>.</p>
+    <script>
+        document.getElementById("manualLink").href = "https://your-target-url.com";
+    </script>
 </body>
 </html>
