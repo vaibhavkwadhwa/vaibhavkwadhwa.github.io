@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Shortcut</title>
+</head>
+<body>
+    <h2>Add this shortcut to your home screen</h2>
+    <button id="addShortcut">Add to Home Screen</button>
+
+    <script>
+        document.getElementById("addShortcut").addEventListener("click", function () {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Add to Home Screen",
+                    url: "https://google.com/search?q=paneer%20pakoda"
+                });
+            } else {
+                alert("Please use the browser menu to add to home screen.");
+            }
+        });
+    </script>
+</body>
+</html>
