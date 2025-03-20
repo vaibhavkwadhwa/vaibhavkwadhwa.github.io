@@ -4,22 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Shortcut</title>
-</head>
-<body>
-    <h2>Add this shortcut to your home screen</h2>
-    <button id="addShortcut">Add to Home Screen</button>
-
     <script>
-        document.getElementById("addShortcut").addEventListener("click", function () {
-            if (navigator.share) {
-                navigator.share({
-                    title: "Add to Home Screen",
-                    url: "https://google.com/search?q=paneer%20pakoda"
-                });
-            } else {
-                alert("Please use the browser menu to add to home screen.");
+        document.addEventListener("DOMContentLoaded", function() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js'); // Required for PWA behavior
             }
         });
+
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById("installBtn").style.display = "block";
+        });
+
+        function addToHomeScreen() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === "accepted") {
+                        console.log("User accepted the A2HS prompt");
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                alert("Please use the browser menu to add this page to your home screen.");
+            }
+        }
     </script>
+</head>
+<body>
+    <h2>Tap below to add this shortcut to your home screen</h2>
+    <button id="installBtn" onclick="addToHomeScreen()" style="display: none;">Add Shortcut</button>
+    <p>If the button doesn't appear, use the browser menu (⋮) and select "Add to Home Screen".</p>
 </body>
 </html>
