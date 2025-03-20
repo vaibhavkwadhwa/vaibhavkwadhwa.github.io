@@ -5,37 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Shortcut</title>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js'); // Required for PWA behavior
-            }
-        });
+        function addShortcut() {
+            const shortcutUrl = "https://your-target-url.com"; // Change this to your desired URL
 
-        let deferredPrompt;
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById("installBtn").style.display = "block";
-        });
+            const a = document.createElement("a");
+            a.href = shortcutUrl;
+            a.rel = "noopener noreferrer";
+            a.target = "_blank";
+            a.click();
 
-        function addToHomeScreen() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === "accepted") {
-                        console.log("User accepted the A2HS prompt");
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                alert("Please use the browser menu to add this page to your home screen.");
-            }
+            alert("Now, tap the menu (⋮) and select 'Add to Home Screen' to create the shortcut.");
         }
     </script>
 </head>
 <body>
-    <h2>Tap below to add this shortcut to your home screen</h2>
-    <button id="installBtn" onclick="addToHomeScreen()" style="display: none;">Add Shortcut</button>
-    <p>If the button doesn't appear, use the browser menu (⋮) and select "Add to Home Screen".</p>
+    <h2>Tap the button below to add a shortcut to your home screen</h2>
+    <button onclick="addShortcut()">Add Shortcut</button>
+    <p>After tapping, use the browser menu (⋮) and select "Add to Home Screen".</p>
 </body>
 </html>
